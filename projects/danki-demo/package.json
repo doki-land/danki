@@ -1,0 +1,8 @@
+{
+    "private": true,
+    "scripts": {},
+    "dependencies": {
+        "@doki-land/danki-core": "workspace:*"
+    },
+    "packageManager": "pnpm@9.15.0"
+}
