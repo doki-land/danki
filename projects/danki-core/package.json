@@ -1,7 +1,16 @@
 {
     "name": "@doki-land/danki",
-    "scripts": {},
+    "version": "0.0.1",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vue-tsc && vite build",
+        "preview": "vite preview"
+    },
     "dependencies": {
+        "vue": "^3.4.15",
+        "vue-router": "^4.2.5",
+        "pinia": "^2.1.7"
     },
     "packageManager": "pnpm@9.15.0"
 }
