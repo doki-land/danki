@@ -1,6 +1,8 @@
 {
     "private": true,
-    "scripts": {},
+    "scripts": {
+        "dev": "vite"
+    },
     "dependencies": {
         "@doki-land/danki-core": "workspace:*"
     },

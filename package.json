@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "dev": "pnpm -F danki-demo dev"
+        "dev": "pnpm --filter danki-demo dev"
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^5.0.3",
