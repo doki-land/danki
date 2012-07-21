@@ -1,3 +1,12 @@
-# Awesome Template
 
-License to CC0 Universal
+
+
+
+## Development
+
+
+```shell
+cargo install dioxus-cli --force
+dx serve --platform web --package danki-core
+```
+
