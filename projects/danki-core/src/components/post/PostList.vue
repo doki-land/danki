@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import type { Post } from '../../index'
-
-defineProps<{
-  posts: Post[]
-}>()
-</script>
-
 <template>
   <div class="post-list">
     <div v-for="post in posts" :key="post.id" class="post-item">
@@ -19,6 +11,16 @@ defineProps<{
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { Post } from '../../index'
+
+defineProps<{
+  posts: Post[]
+}>()
+</script>
+
+
 
 <style lang="scss" scoped>
 .post-list {

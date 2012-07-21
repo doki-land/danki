@@ -1,20 +1,21 @@
-<script setup lang="ts">
-import type { User } from '../../index'
-
-defineProps<{
-  user: User
-}>()
-</script>
-
 <template>
   <div class="user-info">
-    <img :src="user.avatar" alt="avatar" class="user-avatar" />
+    <img :src="user.avatar" alt="avatar" class="user-avatar"/>
     <div class="user-meta">
       <span class="username">{{ user.username }}</span>
       <span class="join-time">加入时间：{{ user.createdAt.toLocaleString() }}</span>
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type {User} from '../../index'
+
+defineProps<{
+  user: User
+}>()
+</script>
+
 
 <style lang="scss" scoped>
 .user-info {

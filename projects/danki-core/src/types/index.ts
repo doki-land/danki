@@ -4,6 +4,20 @@ import type {Pinia} from 'pinia'
 // @ts-ignore
 import type {FluentVueOptions} from 'fluent-vue'
 
+// Danki类型定义
+export interface DankiOptions {
+    router?: Router
+    pinia?: Pinia
+    i18n?: FluentVueOptions
+}
+
+export interface DankiInstance {
+    app: App
+    router: Router
+    pinia: Pinia
+    mount: (container: string | Element) => void
+}
+
 // 基础类型定义
 export interface Post {
     id: string
