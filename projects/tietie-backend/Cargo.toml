@@ -1,0 +1,34 @@
+[package]
+name = "danki-orm"
+version = "0.0.0"
+authors = ["Aster <192607617@qq.com>"]
+description = "..."
+categories = ["rust-patterns"]
+homepage = "https://github.com/oovm/RustTemplate"
+repository = "https://github.com/oovm/RustTemplate"
+documentation = "https://docs.rs/orm"
+readme = "readme.md"
+license = "MPL-2.0"
+edition = "2021"
+exclude = ["package.json", "tests/**"]
+
+[dependencies]
+serde = { version = "1.0.219", features = ["derive"] }
+chrono = { version = "0.4.40" }
+uuid = { version = "1.15.1", features = ["serde", "v7", "js"] }
+dioxus = { version = "0.6.3", features = ["fullstack"] }
+
+[dependencies.sqlx]
+version = "0.8.3"
+features = ["runtime-tokio-rustls", "chrono", "uuid", "postgres"]
+optional = true
+
+[dev-dependencies]
+tokio = { version = "1.44.0", features = ["full", "test-util"] }
+
+[features]
+default = []
+server = ["sqlx"]
+
+[package.metadata.docs.rs]
+all-features = true

@@ -7,6 +7,6 @@
 
 ```shell
 cargo install dioxus-cli --force
-dx serve --platform web --package danki-core
+dx serve --platform web --package tietie-backend
 ```
 

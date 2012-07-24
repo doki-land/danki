@@ -2,7 +2,7 @@
 resolver = "2"
 members = ["projects/*"]
 default-members = [
-    "projects/danki-core",
+    "projects/tietie-backend",
     "projects/danki-cli",
 ]
 exclude = [
