@@ -5,20 +5,20 @@ mod category_page;
 mod post_page;
 mod user_page;
 
-pub use self::home_page::DoraHome;
-pub use self::category_page::DoraCategory;
-pub use self::post_page::DoraPost;
-pub use self::user_page::DoraUser;
+pub use self::home_page::DankiHome;
+pub use self::category_page::DankiTopic;
+pub use self::post_page::DankiPost;
+pub use self::user_page::DankiUser;
 
 #[derive(Clone, Routable, PartialEq)]
-pub enum DoraRouter {
+pub enum DankiRouter {
     #[route("/")]
-    DoraHome {},
-    #[route("/c/:category_id")]
-    DoraCategory { category_id: String },
+    DankiHome {},
+    #[route("/r/:topic_id")]
+    DankiTopic { topic_id: String },
     #[route("/p/:post_id")]
-    DoraPost { post_id: String },
+    DankiPost { post_id: String },
     #[route("/u/:user_id")]
-    DoraUser { user_id: String}
+    DankiUser { user_id: String}
 }
 

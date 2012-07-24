@@ -9,7 +9,7 @@ use dioxus_i18n::{
     unic_langid::langid,
     use_i18n::{use_init_i18n, I18nConfig, Locale},
 };
-use dora_core::views::DoraRouter;
+use dora_core::views::DankiRouter;
 
 fn main() {
     dioxus::LaunchBuilder::new()
@@ -40,6 +40,6 @@ pub fn app() -> Element {
             // Urls are relative to your Cargo.toml file
             href: asset!("/assets/styles/index.scss")
         }
-        Router::<DoraRouter> {}
+        Router::<DankiRouter> {}
     }
 }

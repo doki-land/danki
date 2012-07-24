@@ -1,6 +1,6 @@
 use super::*;
 
 #[component]
-pub fn DoraCategory(category_id: String) -> Element {
+pub fn DankiTopic(topic_id: String) -> Element {
     rsx! {}
 }
