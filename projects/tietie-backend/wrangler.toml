@@ -2,5 +2,8 @@ name = "tietie-backend"
 main = "build/worker/shim.mjs"
 compatibility_date = "2025-03-23"
 
+[dev]
+port = 8080
+
 [build]
-command = "cargo install -q worker-build && worker-build --release"
+command = "worker-build --release"
