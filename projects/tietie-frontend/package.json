@@ -1,5 +1,5 @@
 {
-    "name": "@doki-land/danki-core",
+    "private" : true,
     "version": "0.0.0",
     "type": "module",
     "files": ["dist"],
