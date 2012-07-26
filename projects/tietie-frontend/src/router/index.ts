@@ -5,6 +5,7 @@ import HomePage from '@/views/HomePage.vue';
 import AdminLayout from '@/views/admin/AdminLayout.vue';
 import AdminPageList from '@/views/admin/PageList.vue';
 import AdminUserList from '@/views/admin/UserList.vue';
+import UserProfile from "@/views/user/UserProfile.vue";
 
 const routes: RouteRecordRaw[] = [
     {
@@ -20,6 +21,11 @@ const routes: RouteRecordRaw[] = [
         path: '/posts',
         name: 'PostList',
         component: PostList
+    },
+    {
+        path: '@:userId',
+        name: 'UserProfile',
+        component: UserProfile
     },
     {
         path: '/posts/:id',
