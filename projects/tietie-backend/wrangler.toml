@@ -2,8 +2,13 @@ name = "tietie-backend"
 main = "build/worker/shim.mjs"
 compatibility_date = "2025-03-23"
 
+[build]
+command = "worker-build --dev"
+
 [dev]
 port = 8080
 
-[build]
-command = "worker-build --release"
+[[d1_databases]]
+binding = "TTDB"
+database_name = "test-db"
+database_id = "6bc1b746-bf51-4f93-aabb-710ef1be2e63"

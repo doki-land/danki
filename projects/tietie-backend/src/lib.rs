@@ -10,19 +10,15 @@ use aide::{
     openapi::OpenApi,
 };
 use axum::{http, Extension, Json};
-use std::{
-    collections::HashMap,
-    sync::{Arc, Mutex},
-};
+use sqlx_d1::D1Connection;
 use tower_service::Service;
-use uuid::Uuid;
 use worker::{console_log, event, Context, Env, HttpRequest};
 
 mod api_getter;
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone)]
 pub struct AppState {
-    pub todos: Arc<Mutex<HashMap<Uuid, String>>>,
+    pub db: D1Connection,
 }
 
 #[event(start)]
@@ -31,7 +27,7 @@ fn start() {
 }
 
 #[event(fetch)]
-async fn fetch(req: HttpRequest, _env: Env, _ctx: Context) -> worker::Result<http::Response<axum::body::Body>> {
+async fn fetch(req: HttpRequest, env: Env, _ctx: Context) -> worker::Result<http::Response<axum::body::Body>> {
     console_error_panic_hook::set_once();
     aide::generate::on_error(|error| {
         println!("{error}");
@@ -39,7 +35,9 @@ async fn fetch(req: HttpRequest, _env: Env, _ctx: Context) -> worker::Result<htt
 
     aide::generate::extract_schemas(true);
 
-    let state = AppState::default();
+    let d1 = env.d1("TTDB")?;
+    let conn = D1Connection::new(d1);
+    let state = AppState { db: conn };
 
     let mut api = OpenApi::default();
 
@@ -47,7 +45,7 @@ async fn fetch(req: HttpRequest, _env: Env, _ctx: Context) -> worker::Result<htt
         .api_route("/test", post(api_getter::home_statistics))
         .route("/tietie.json", get(open_api))
         .finish_api(&mut api)
-        .layer(Extension(Arc::new(api)))
+        .layer(Extension(api))
         .with_state(state);
 
     Ok(app.call(req).await?)
