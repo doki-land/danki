@@ -1,0 +1,1 @@
+database_url = 'postgresql://localhost:5432/tie_tie'

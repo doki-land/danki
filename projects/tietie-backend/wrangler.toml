@@ -8,7 +8,8 @@ command = "worker-build --dev"
 [dev]
 port = 8080
 
-[[d1_databases]]
-binding = "TTDB"
-database_name = "test-db"
-database_id = "6bc1b746-bf51-4f93-aabb-710ef1be2e63"
+[env.dev.vars]
+DATABASE_URL = "dev.example.com"
+
+[env.production.vars]
+DATABASE_URL = "<SECRET_URL>"

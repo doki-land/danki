@@ -1,8 +1,6 @@
-use std::fmt::{Display, Formatter};
-use aide::OperationOutput;
-use axum::http::StatusCode;
-use axum::response::{IntoResponse, Response};
+use poem::IntoResponse;
 use sqlx::Error;
+use std::fmt::{Display, Formatter};
 
 pub enum AppError {
     DatabaseError { message: String },
@@ -23,12 +21,9 @@ impl From<sqlx::Error> for AppError {
         Self::DatabaseError { message: value.to_string() }
     }
 }
-impl IntoResponse for AppError {
-    fn into_response(self) -> Response {
-        (StatusCode::INTERNAL_SERVER_ERROR, self.to_string()).into_response()
-    }
-}
 
-impl OperationOutput for AppError {
-    type Inner = ();
+impl IntoResponse for AppError {
+    fn into_response(self) -> poem::Response {
+        todo!()
+    }
 }

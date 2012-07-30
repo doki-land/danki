@@ -26,14 +26,13 @@ crate-type = ["cdylib"]
 worker = { version = "0.5.0", features = ['http', 'axum', "d1"] }
 worker-macros = { version = "0.5.0", features = ['http'] }
 
-axum = { version = "0.8.1", default-features = false }
-aide = { version = "0.14.2", features = ["axum", "axum-json"] }
 tower-service = "0.3.2"
 console_error_panic_hook = { version = "0.1.1" }
 serde = { version = "1.0.219", features = ["derive"] }
-schemars = { version = "0.8.22", features = ["uuid1", "chrono"]}
-sqlx = { version = "0.8.3", features = ["uuid", "chrono"] }
-sqlx-d1 = { version = "0.1.4", features = ["uuid", "chrono"] }
+serde_json = { version = "1.0.140" }
+sqlx = { version = "0.8.3", features = ["uuid", "chrono", "sqlx-postgres"] }
+poem = { version = "3.1.7", features = ["default", "chrono"] }
+poem-openapi = { version = "5.1.8", features = ["uuid", "sqlx", "chrono"] }
 chrono = { version = "0.4.40", features = ["serde"] }
 uuid = { version = "1.15.1", features = ["serde", "v7", "js"] }
 
