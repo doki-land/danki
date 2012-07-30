@@ -18,32 +18,9 @@
 
 ## 使用示例
 
-```rust
-use danki_orm::{connect, migration, repository::user::UserRepository};
-
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // 连接数据库
-    let db = connect("sqlite:data.db").await?;
-    
-    // 应用迁移
-    migration::migrate(&db).await?;
-    
-    // 创建用户存储库
-    let user_repo = UserRepository::new(db.clone());
-    
-    // 创建用户
-    let user = user_repo.create(
-        "username".to_string(),
-        "email@example.com".to_string(),
-        "password_hash".to_string(),
-        None,
-        None,
-    ).await?;
-    
-    println!("Created user: {}", user.username);
-    
-    Ok(())
-}
+```sh
+wrangler d1 migrations create TTDB 'schema'
+wrangler d1 export "TTDB" --output ".wrangler/online.sql" --remote
 ```
 
 ## 测试
