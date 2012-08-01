@@ -4,20 +4,20 @@
 
 use crate::api_getter::HomeStatistics;
 pub use crate::errors::AppError;
-use poem::{middleware::Cors, web::Json, Addr, Endpoint, EndpointExt, IntoResponse, Route};
-use poem::web::{LocalAddr, RemoteAddr};
-use poem_openapi::{OpenApi, OpenApiService, Tags};
+use poem::{
+
+     Endpoint, EndpointExt, IntoResponse,
+};
+use poem_openapi::{OpenApi, Tags};
+use poem_openapi::payload::Json;
 use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
 use tower_service::Service;
-use worker::{console_log, event, Context, Env, HttpRequest, HttpResponse};
-
+pub use crate::errors::{Result};
 mod api_getter;
 mod config;
 mod database;
 mod errors;
 mod models;
-
-pub type Result<T> = std::result::Result<Json<T>, AppError>;
 
 pub struct AppState {
     pg: Pool<Postgres>,
@@ -30,41 +30,6 @@ impl AppState {
             Err(_) => panic!("找不到 `PGSQL_URL`"),
         };
         Self { pg: db }
-    }
-}
-
-#[event(start)]
-fn start() {
-    console_log!("Example docs are accessible at http://127.0.0.1:8080");
-}
-
-#[event(fetch)]
-async fn fetch(req: HttpRequest, env: Env, _ctx: Context) -> worker::Result<HttpResponse> {
-    console_error_panic_hook::set_once();
-    // PrintTracing::enable();
-    env.var("")?;
-    let db = AppState::connect().await;
-    let time = chrono::Utc::now();
-    let api_service = OpenApiService::new(db, "ApiEndpoint", time.to_string()).server("http://localhost:8080");
-
-    let json = api_service.spec_endpoint();
-
-    let app = Route::new()
-        .nest("/digital-human.json", json)
-        .nest("/", api_service)
-        .with(
-            Cors::new(), /* .allow_origin("*")
-                          * .allow_credentials(true)
-                          * .max_age(3600)
-                          * .allow_methods(vec!["POST", "OPTIONS"])
-                          * .allow_headers(vec!["Origin", "Methods", "Content-Type"]) */
-        )
-        // .with(RequestTracing {})
-        ;
-
-    match app.call(poem::Request::from((req, LocalAddr(Addr::Custom()), RemoteAddr(Addr::Custom()), c))).await {
-        Ok(o) => Ok(o.into_response()),
-        Err(e) => Err(worker::Error::Infallible),
     }
 }
 
@@ -84,5 +49,4 @@ impl AppState {
     }
 }
 
-#[test]
-fn test() {}
+

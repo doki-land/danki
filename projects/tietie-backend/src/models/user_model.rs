@@ -1,21 +1,24 @@
 use crate::{AppError, AppState};
 use chrono::{DateTime, Local};
-use serde::{Deserialize, Serialize};
-use sqlx::{Error, FromRow};
-use std::fmt::{Display, Formatter};
+use poem_openapi::Object;
+use sqlx::FromRow;
+use std::fmt::Display;
+use poem_openapi::payload::Json;
+use serde_json::ser::State;
 use uuid::Uuid;
+use crate::Result;
 
-#[derive(Clone, Debug, PartialEq, Deserialize, JsonSchema)]
+#[derive(Clone, Debug, PartialEq, Object)]
 pub struct UserQueryByLink {
     user_name: String,
 }
-#[derive(Clone, Debug, PartialEq, Deserialize, JsonSchema)]
+#[derive(Clone, Debug, PartialEq, Object)]
 pub struct LoginByPassword {
     user_name: String,
     password: String,
 }
 
-#[derive(Clone, Debug, PartialEq, Serialize, JsonSchema, FromRow)]
+#[derive(Clone, Debug, PartialEq, Object, FromRow)]
 pub struct UserInfo {
     pub user_id: Uuid,
     pub user_name: String,
@@ -26,14 +29,14 @@ pub struct UserInfo {
     pub update_time: DateTime<Local>,
 }
 
-#[derive(Clone, Debug, PartialEq, Deserialize, JsonSchema)]
+#[derive(Clone, Debug, PartialEq, Object)]
 pub struct UserCreate {
     pub user_name: String,
     pub nick_name: Option<String>,
     pub password: String,
 }
 
-#[derive(Clone, Debug, PartialEq, Deserialize, JsonSchema)]
+#[derive(Clone, Debug, PartialEq, Object)]
 pub struct UserEdit {
     pub user_id: Uuid,
     pub user_name: Option<String>,
@@ -42,7 +45,7 @@ pub struct UserEdit {
     pub password: Option<String>,
 }
 
-pub async fn new_user(state: State<AppState>, json: Json<UserCreate>) -> Result<Json<UserInfo>, AppError> {
+pub async fn new_user(api: &AppState, json: Json<UserCreate>) -> Result<UserInfo> {
     let user_id = Uuid::now_v7();
     let user_name = json.0.user_name;
     let user: UserInfo = sqlx::query_as(
@@ -56,24 +59,24 @@ pub async fn new_user(state: State<AppState>, json: Json<UserCreate>) -> Result<
     .bind(user_name.to_string())
     .bind(json.0.nick_name.unwrap_or(user_name.to_string()))
     .bind(json.0.password)
-    .fetch_one(&state.db)
+    .fetch_one(&api.pg)
     .await?;
     Ok(Json(user))
 }
 
-pub async fn get_user(state: State<AppState>, json: Json<UserQueryByLink>) -> Result<Json<UserInfo>, AppError> {
+pub async fn get_user(api: &AppState, json: Json<UserQueryByLink>) -> Result<UserInfo> {
     let mut user: UserInfo = sqlx::query_as("SELECT * FROM user_info WHERE user_name = $1 LIMIT 1")
         .bind(json.0.user_name)
-        .fetch_one(&state.db)
+        .fetch_one(&api.pg)
         .await?;
     user.password.clear();
     Ok(Json(user))
 }
 
-pub async fn login_by_password(state: State<AppState>, json: Json<LoginByPassword>) -> Result<Json<UserInfo>, AppError> {
+pub async fn login_by_password(api: &AppState, json: Json<LoginByPassword>) -> Result<UserInfo> {
     let mut user: UserInfo = sqlx::query_as("SELECT * FROM user_info WHERE user_name = $1 LIMIT 1")
         .bind(json.0.user_name)
-        .fetch_one(&state.db)
+        .fetch_one(&api.pg)
         .await?;
     if user.password.eq(&json.0.password) {
         user.password.clear();
@@ -82,5 +85,4 @@ pub async fn login_by_password(state: State<AppState>, json: Json<LoginByPasswor
     else {
         Err(AppError::DatabaseError { message: "X".to_string() })
     }
- 
 }
