@@ -1,17 +1,34 @@
 use clap::Parser;
-use danki_orm::{AppError, AppState};
+use tie_tie_space::{AppError, AppState};
 use poem::{middleware::Cors, EndpointExt, Route};
+use poem::listener::TcpListener;
 use poem_openapi::OpenApiService;
-use tokio::net::TcpListener;
+use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
+
 
 #[derive(Parser)]
-pub struct App {}
+pub struct App {
+    #[clap(short, long)]
+    database_url: Option<String>,
+}
+
+impl App {
+    pub async fn startup(self) -> Result<AppState, AppError> {
+        Ok(AppState { pg: self.database().await? })
+    }
+    async fn database(&self) -> Result<Pool<Postgres>, AppError> {
+        let url = match self.database_url.as_ref() {
+            Some(o) => o.to_string(),
+            None => std::env::var("DATABASE_URL")?,
+        };
+        Ok(PgPoolOptions::new().max_connections(5).connect(&url).await?)
+    }
+}
 
 impl App {
     pub async fn run(self) -> Result<(), AppError> {
         // PrintTracing::enable();
-
-        let db = AppState::connect().await;
+        let db = self.startup().await?;
         let time = chrono::Utc::now();
         let api_service = OpenApiService::new(db, "ApiEndpoint", time.to_string()).server("http://localhost:8080");
 
@@ -25,11 +42,11 @@ impl App {
                            .allow_credentials(true)
                           .max_age(3600)
                            .allow_methods(vec!["POST", "OPTIONS"])
-                          .allow_headers(vec!["Origin", "Methods", "Content-Type"]) 
+                          .allow_headers(vec!["Origin", "Methods", "Content-Type"])
             )
             // .with(RequestTracing {})
             ;
-        poem::Server::new(TcpListener::bind("0.0.0.0")).run(app).await?;
+        poem::Server::new(TcpListener::bind("0.0.0.0:8080")).run(app).await?;
         Ok(())
     }
 }

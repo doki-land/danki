@@ -2,35 +2,19 @@
 #![doc(html_logo_url = "https://raw.githubusercontent.com/oovm/shape-rs/dev/projects/images/Trapezohedron.svg")]
 #![doc(html_favicon_url = "https://raw.githubusercontent.com/oovm/shape-rs/dev/projects/images/Trapezohedron.svg")]
 
-use crate::api_getter::HomeStatistics;
-pub use crate::errors::AppError;
-use poem::{
+pub use crate::errors::{AppError, Result};
+use crate::models::{UserCreate, UserId};
+use poem::{Endpoint, EndpointExt, IntoResponse};
+use poem_openapi::{payload::Json, OpenApi, Tags};
+use sqlx::{Pool, Postgres};
 
-     Endpoint, EndpointExt, IntoResponse,
-};
-use poem_openapi::{OpenApi, Tags};
-use poem_openapi::payload::Json;
-use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
-use tower_service::Service;
-pub use crate::errors::{Result};
 mod api_getter;
-mod config;
 mod database;
 mod errors;
 mod models;
 
 pub struct AppState {
-    pg: Pool<Postgres>,
-}
-
-impl AppState {
-    pub async fn connect() -> AppState {
-        let db = match std::env::var("DATABASE_URL") {
-            Ok(o) => PgPoolOptions::new().max_connections(5).connect(&o).await.expect("无法连接数据库"),
-            Err(_) => panic!("找不到 `PGSQL_URL`"),
-        };
-        Self { pg: db }
-    }
+    pub pg: Pool<Postgres>,
 }
 
 #[derive(Tags)]
@@ -40,13 +24,9 @@ pub enum AppTags {
 
 #[OpenApi]
 impl AppState {
-    /// 刷新 jwt
-    ///
-    /// 注意! 要用 refresh_token!!!
-    #[oai(path = "/auth/refresh", method = "get", tag = "AppTags::Auth")]
-    pub async fn auth_refresh(&self) -> Result<HomeStatistics> {
-        Ok(Json(crate::api_getter::HomeStatistics { all_users: 0, all_packages: 0, all_downloads: 0 }))
+    /// Register a new user
+    #[oai(path = "/user/create", method = "get", tag = "AppTags::Auth")]
+    pub async fn user_create(&self, json: Json<UserCreate>) -> Result<UserId> {
+        Ok(Json(json.0.create(self).await?))
     }
 }
-
-

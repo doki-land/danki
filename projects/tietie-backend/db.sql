@@ -1,20 +1,39 @@
-CREATE TABLE user_info (
-    user_id                        Bigint                                             NOT NULL
-        CONSTRAINT user_info_pk
-            PRIMARY KEY,
-    user_name                      Text                                               NOT NULL
-        CONSTRAINT user_info_pk_2
-            UNIQUE,
-    nick_name                      Text                     DEFAULT ''::Text          NOT NULL,
-    password                       Text                     DEFAULT ''::Text          NOT NULL,
-    create_time                    Timestamp With Time Zone DEFAULT current_timestamp NOT NULL,
-    create_user                    Bigint                                             NOT NULL,
-    update_time                    Timestamp With Time Zone DEFAULT current_timestamp NOT NULL,
-    update_user                    Bigint                                             NOT NULL,
-    type                           Smallint                 DEFAULT 0                 NOT NULL,
-    status                         Smallint                 DEFAULT 0                 NOT NULL
+create table user_info
+(
+    user_id     bigint                                             not null
+        constraint user_info_pk
+            primary key,
+    user_name   text                                               not null
+        constraint user_info_k2
+            unique,
+    nick_name   text                     default ''::text          not null,
+    password    text                     default ''::text          not null,
+    create_time timestamp with time zone default CURRENT_TIMESTAMP not null,
+    create_user bigint                                             not null,
+    update_time timestamp with time zone default CURRENT_TIMESTAMP not null,
+    update_user bigint                                             not null,
+    type        smallint                 default 0                 not null,
+    status      smallint                 default 0                 not null
 );
 
-ALTER TABLE user_info
-    OWNER TO postgres;
+alter table user_info
+    owner to postgres;
+
+create function user_create("@user_id" bigint, "@user_name" text, "@nick_name" text, "@password" text) returns void
+    language plpgsql
+as
+$$
+BEGIN
+    INSERT INTO user_info
+    (
+        user_id, user_name, nick_name, password, create_time, update_time
+    )
+    VALUES
+        (
+            "@user_id", "@user_name", "@nick_name", "@password", current_timestamp, current_timestamp
+        );
+END;
+$$;
+
+alter function user_create(bigint, text, text, text) owner to postgres;
 

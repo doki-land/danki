@@ -18,4 +18,4 @@
 // mod tag_model;
 mod user_model;
 
-pub use self::user_model::{get_user, new_user};
+pub use self::user_model::{UserCreate, UserId};

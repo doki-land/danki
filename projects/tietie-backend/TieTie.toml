@@ -1,1 +1,1 @@
-database_url = 'postgresql://localhost:5432/tie_tie'
+database_url = 'postgresql://postgres@localhost:5432/tie_tie'

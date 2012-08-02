@@ -1,5 +1,5 @@
 [package]
-name = "danki-orm"
+name = "tie-tie-space"
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "..."
@@ -15,15 +15,13 @@ exclude = ["package.json", "tests/**"]
 [dependencies]
 clap = { version = "4.5.32", features = ["derive"] }
 tokio = { version = "1.17.0", features = ["full"] }
-tower-service = "0.3.2"
-console_error_panic_hook = { version = "0.1.1" }
 serde = { version = "1.0.219", features = ["derive"] }
 serde_json = { version = "1.0.140" }
-sqlx = { version = "0.8.3", features = ["uuid", "chrono", "sqlx-postgres"] }
+sqlx = { version = "0.8.3", features = ["uuid", "chrono", "sqlx-postgres", "runtime-tokio-rustls"] }
 poem = { version = "3.1.7", features = ["default", "chrono"] }
 poem-openapi = { version = "5.1.8", features = ["uuid", "sqlx", "chrono"] }
+semantic-id = { version = "0.0.0", features = ["poem-openapi", "sqlx"]}
 chrono = { version = "0.4.40", features = ["serde"] }
-uuid = { version = "1.15.1", features = ["serde", "v7", "js"] }
 
 [features]
 default = []
