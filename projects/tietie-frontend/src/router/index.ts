@@ -23,7 +23,12 @@ const routes: RouteRecordRaw[] = [
         component: PostList
     },
     {
-        path: '@:userId',
+        path: '/@:user_id',
+        name: 'UserProfile',
+        component: UserProfile
+    },
+    {
+        path: '/u/:user_id',
         name: 'UserProfile',
         component: UserProfile
     },

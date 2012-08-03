@@ -18,3 +18,4 @@ build/
 target/
 static/**/*
 index.css
+Cargo.lock

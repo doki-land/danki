@@ -1,8 +1,7 @@
 {
-    "private" : true,
+    "private": true,
     "version": "0.0.0",
     "type": "module",
-    "files": ["dist"],
     "scripts": {
         "dev": "vite",
         "build": "vite build",
@@ -10,22 +9,15 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "vue": "^3.4.15",
-        "vue-router": "^4.2.5",
-        "pinia": "^2.1.7",
         "@fluent/bundle": "^0.18.0",
+        "@vitejs/plugin-vue": "^5.2.3",
         "@vueuse/core": "^10.3.0",
-        "fluent-vue": "^3.7.1"
-    },
-    "peerDependencies": {
-        "pinia": ">=2.1.6",
-        "vue": ">=3.3.4",
-        "vue-router": ">=4.2.4"
-    },
-    "peerDependenciesMeta": {
-        "vue": {
-            "optional": false
-        }
+        "fluent-vue": "^3.7.1",
+        "pinia": "^2.1.7",
+        "sass": "^1.86.0",
+        "vite": "^6.2.3",
+        "vue": "^3.4.15",
+        "vue-router": "^4.2.5"
     },
     "packageManager": "pnpm@9.15.0"
 }
