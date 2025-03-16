@@ -5,6 +5,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vue-tsc && vite build",
+        "build:watch": "vite build --watch",
         "preview": "vite preview"
     },
     "dependencies": {
@@ -14,6 +15,16 @@
         "@fluent/bundle": "^0.18.0",
         "@vueuse/core": "^10.3.0",
         "fluent-vue": "^3.7.1"
+    },
+    "peerDependencies": {
+        "pinia": ">=2.1.6",
+        "vue": ">=3.3.4",
+        "vue-router": ">=4.2.4"
+    },
+    "peerDependenciesMeta": {
+        "vue": {
+            "optional": false
+        }
     },
     "packageManager": "pnpm@9.15.0"
 }

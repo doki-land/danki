@@ -14,7 +14,7 @@ import * as components from './components'
  */
 export function createDanki(options: DankiOptions = {}): DankiInstance {
     // 创建Vue应用实例
-    const app = createApp(options.app || {})
+    const app = createApp({})
 
     // 创建或使用路由实例
     const router = options.router || createRouter({
