@@ -1,0 +1,7 @@
+{
+    "name": "@doki-land/danki",
+    "scripts": {},
+    "dependencies": {
+    },
+    "packageManager": "pnpm@9.15.0"
+}
