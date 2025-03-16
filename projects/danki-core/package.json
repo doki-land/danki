@@ -10,7 +10,10 @@
     "dependencies": {
         "vue": "^3.4.15",
         "vue-router": "^4.2.5",
-        "pinia": "^2.1.7"
+        "pinia": "^2.1.7",
+        "@fluent/bundle": "^0.18.0",
+        "@vueuse/core": "^10.3.0",
+        "fluent-vue": "^3.7.1"
     },
     "packageManager": "pnpm@9.15.0"
 }
