@@ -63,6 +63,5 @@ export function createDanki(options: DankiOptions = {}): DankiInstance {
         app,
         router,
         pinia,
-        version: '0.0.1'
     }
 }

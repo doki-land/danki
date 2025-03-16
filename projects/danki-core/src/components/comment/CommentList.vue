@@ -1,16 +1,8 @@
-<script setup lang="ts">
-import type { Comment } from '../../index'
-
-defineProps<{
-  comments: Comment[]
-}>()
-</script>
-
 <template>
   <div class="comment-list">
     <div v-for="comment in comments" :key="comment.id" class="comment-item">
       <div class="comment-header">
-        <img :src="comment.author.avatar" alt="avatar" class="author-avatar" />
+        <img :src="comment.author.avatar" alt="avatar" class="author-avatar"/>
         <span class="author-name">{{ comment.author.username }}</span>
         <span class="comment-time">{{ comment.createdAt.toLocaleString() }}</span>
       </div>
@@ -21,6 +13,15 @@ defineProps<{
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type {Comment} from '../../index'
+
+defineProps<{
+  comments: Comment[]
+}>()
+</script>
+
 
 <style lang="scss" scoped>
 .comment-list {

@@ -1,5 +1,18 @@
+<template>
+  <div class="comment-editor">
+    <textarea
+        v-model="content"
+        placeholder="请输入评论内容"
+        class="comment-textarea"
+    />
+    <button @click="handleSubmit" class="submit-btn">
+      发表评论
+    </button>
+  </div>
+</template>
+
 <script setup lang="ts">
-import { ref } from 'vue'
+import {ref} from 'vue'
 
 const emit = defineEmits<{
   submit: [content: string]
@@ -15,18 +28,6 @@ const handleSubmit = () => {
 }
 </script>
 
-<template>
-  <div class="comment-editor">
-    <textarea
-      v-model="content"
-      placeholder="请输入评论内容"
-      class="comment-textarea"
-    />
-    <button @click="handleSubmit" class="submit-btn">
-      发表评论
-    </button>
-  </div>
-</template>
 
 <style lang="scss" scoped>
 .comment-editor {

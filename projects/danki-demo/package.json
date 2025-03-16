@@ -5,7 +5,10 @@
         "dev": "vite"
     },
     "dependencies": {
-        "@doki-land/danki-core": "workspace:*"
+        "@doki-land/danki": "workspace:*",
+        "vue": "^3.4.15",
+        "vue-router": "^4.2.5",
+        "pinia": "^2.1.7"
     },
     "packageManager": "pnpm@9.15.0"
 }

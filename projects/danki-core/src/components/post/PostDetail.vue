@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import type { Post } from '../../index'
-
-defineProps<{
-  post: Post
-}>()
-</script>
-
 <template>
   <div class="post-detail">
     <h2>{{ post.title }}</h2>
@@ -18,6 +10,16 @@ defineProps<{
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { Post } from '../../index'
+
+defineProps<{
+  post: Post
+}>()
+</script>
+
+
 
 <style lang="scss" scoped>
 .post-detail {
