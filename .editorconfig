@@ -2,10 +2,10 @@
 charset = utf-8
 
 
-[*.{js,jsx,ts,tsx}]
+[*.{sass,scss,css}]
 indent_style = space
 indent_size = 4
 
-[*.json]
+[*.{json,toml}]
 indent_style = space
 indent_size = 4

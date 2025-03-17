@@ -1,17 +1,12 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm-run-all \"dev:core\" \"dev:demo\"",
-        "dev:core": "pnpm --filter danki-core build:watch",
-        "dev:demo": "pnpm --filter danki-demo dev"
-    },
-    "devDependencies": {
-             "npm-run-all": "^4.1.5",
-        "@vitejs/plugin-vue": "^5.0.3",
-        "sass": "^1.70.0",
-        "typescript": "^5.3.3",
-        "vite": "^5.0.12",
-        "vue-tsc": "^1.8.27"
-    },
-    "packageManager": "pnpm@9.15.0"
+        "doc": "cargo doc --no-deps --all-features",
+        "test": "cargo test --release",
+        "fmt": "cargo fmt --all",
+        "dev": "dx serve --package skadi-core --platform web",
+        "p": "git push && git push --tags --prune",
+        "reset": "git reset Head~ --soft",
+        "u": "cargo upgrade --workspace"
+    }
 }

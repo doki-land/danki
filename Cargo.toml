@@ -1,0 +1,29 @@
+[workspace]
+resolver = "2"
+members = ["projects/*"]
+default-members = [
+    "projects/danki-core",
+    "projects/danki-cli",
+]
+exclude = [
+    "projects/.DS_Store",
+]
+
+[profile.release]
+lto = true
+panic = "abort"
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
+
+
+[workspace.dependencies.dioxus]
+version = "0.6.3"
+features = []

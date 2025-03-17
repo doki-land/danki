@@ -1,9 +1,18 @@
-.idea/
-*.iml
+# OS
+.DS_Store/
+thumbs.db
+time-travel.*
+
+# IDE
 .vscode/
 .vs/
-
+.idea/
+*.iml
 
 # Node
 node_modules/
-projects/danki-core/pnpm-lock.yaml
+
+# Rust
+target/
+static/**/*
+index.css
