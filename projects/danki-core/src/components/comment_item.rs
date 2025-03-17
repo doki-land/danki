@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-use dioxus_i18n::use_i18n;
+use dioxus_i18n::{t, use_i18n};
 
 #[component]
 pub fn CommentItem(comment_id: String, content: String, author: String, comment_time: String, like_count: i32) -> Element {
@@ -14,8 +14,8 @@ pub fn CommentItem(comment_id: String, content: String, author: String, comment_
                 }
                 // 用户名和评论时间
                 div { class: "comment-meta",
-                    a { class: "comment-author", href: format!("/u/{}", author), author }
-                    span { class: "comment-time", comment_time }
+                    a { class: "comment-author", href: format!("/u/{}", author), "{author}" }
+                    span { class: "comment-time", "{comment_time}" }
                 }
             }
             // 评论内容

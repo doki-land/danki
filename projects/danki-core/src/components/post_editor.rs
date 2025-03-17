@@ -3,7 +3,7 @@ use dioxus_i18n::use_i18n;
 
 #[component]
 pub fn PostEditor(topic_id: Option<String>, edit_post_id: Option<String>) -> Element {
-    
+
     let title = use_signal(String::new);
     let content = use_signal(String::new);
     
@@ -24,7 +24,6 @@ pub fn PostEditor(topic_id: Option<String>, edit_post_id: Option<String>) -> Ele
                         r#type: "text", 
                         placeholder: "请输入标题",
                         value: title.read().clone(),
-                        oninput: move |evt| title.set(evt.value.clone())
                     }
                 }
                 div { class: "form-group",
